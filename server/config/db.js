@@ -1,4 +1,3 @@
-// CONNECT TO MYSQL DB
 const Sequelize = require('sequelize')
 const env = process.env.NODE_ENV || 'dev'
 let db
