@@ -7,7 +7,7 @@ const Session = require('../session/session.js')
 const Pageview = db.define('pageview', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
   date: { type: Sequelize.DATEONLY, allowNull: false, defaultValue: Sequelize.NOW },
-  seconds: { type: Sequelize.INTEGER, allowNull: false },
+  seconds: { type: Sequelize.STRING, allowNull: false },
   session: {
     type: Sequelize.INTEGER,
     allowNull: false,
