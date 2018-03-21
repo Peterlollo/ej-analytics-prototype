@@ -102,7 +102,7 @@ module.exports = {
       let path = rowDimensions[pathIndex]
       let rowMetrics = rows[i].metrics[0].values
       let date = rowDimensions[dateIndex]
-      let timeOnPage = rowMetrics[timeOnPageIndex]
+      let timeOnPage = Number(rowMetrics[timeOnPageIndex])
 
       // add Provider
       Provider.findOrCreate({where: {name: provider}})
