@@ -4,9 +4,15 @@ const Session = require('../session/session.js')
 const Pageview = require('../pageview/pageview.js')
 const helpers = require('./helpers')
 const {google} = require('googleapis')
-// service account key object
-// const key = require('../config/googleKey.json') // local dev
-const key = process.env.googleKey // prod
+const env = process.env.NODE_ENV || 'dev'
+let key = {}
+
+if (env === 'dev') {
+  key = require('../config/googleKey.json')
+} else {
+  key.client_email = process.env.GOOGLE_KEY_CLIENT_EMAIL
+  key.private_key = process.env.GOOGLE_KEY_PRIVATE_KEY
+}
 
 const request = helpers.initRequest()
 const makeReportRequest = helpers.makeReportRequest
