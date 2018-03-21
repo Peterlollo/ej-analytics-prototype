@@ -24,7 +24,7 @@ if (env === 'dev') {
     protocol: 'postgres',
     port: match[4],
     host: match[3],
-    logging: true
+    logging: false
   })
 }
 
