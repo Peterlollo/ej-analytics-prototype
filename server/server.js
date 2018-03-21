@@ -1,11 +1,12 @@
 const express = require('express')
 const createModels = require('./config/createModels.js')
 const path = require('path')
-const serveStatic = require('serve-static')
+const history = require('connect-history-api-fallback')
 
 createModels()
 const app = express()
-app.use(serveStatic(path.join(__dirname, '/dist')))
+app.use(history())
+app.use(express.static(path.join(__dirname, '/../dist')))
 
 const port = process.env.PORT || 5000
 
