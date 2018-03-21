@@ -8,7 +8,7 @@ const analytics = google.analyticsreporting('v4')
 module.exports = {
   // recursively generate report requests until pageToken === undefined
   makeReportRequest: function (jwtClient, request, storeReportData, pageToken, next) {
-    if (pageToken < 199) { // EDIT: temporarily disable requests after first 200 received
+    if (pageToken) {
       request.reportRequests[0].pageToken = pageToken
       module.exports.authorize(jwtClient, request, storeReportData, next)
     } else {
@@ -41,7 +41,7 @@ module.exports = {
         {
           viewId: viewID,
           pageToken: '0', // API pagination offset
-          pageSize: 200, // Number of records to request
+          pageSize: 500, // Number of records to request
           dateRanges: [
             {
               startDate: '2daysAgo',

@@ -9,11 +9,9 @@ let key = {}
 
 if (env === 'dev') {
   key = require('../config/googleKey.json')
-  console.log('DEV KEY: >>>>>>>>>>>>>>>>>>>>>>>>', key)
 } else {
   key.client_email = process.env.GOOGLE_KEY_CLIENT_EMAIL
   key.private_key = process.env.GOOGLE_KEY_PRIVATE_KEY.replace(/\\n/g, '\n')
-  console.log('PROD KEY: >>>>>>>>>>>>>>>>>>>>>>>>', key)
 }
 
 const request = helpers.initRequest()

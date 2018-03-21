@@ -2,7 +2,7 @@
   <div>
     <h1>Companies</h1>
     <ul>
-      <li v-for='provider in providers' :key='provider.id'
+      <li v-for='provider in providersWithPageviews' :key='provider.id'
         class='provider'
         v-on:click='viewProvider(provider.id)'
       >{{ provider.name }}
@@ -16,7 +16,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Providers',
   computed: {
-    ...mapGetters([ 'providers' ])
+    ...mapGetters([ 'providersWithPageviews' ])
   },
   methods: {
     ...mapActions([ 'getData', 'viewProvider' ])
