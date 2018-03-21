@@ -1,5 +1,4 @@
 const Provider = require('./provider')
-const Promise = require('bluebird')
 
 module.exports = {
   addProvider: (provider) => {
