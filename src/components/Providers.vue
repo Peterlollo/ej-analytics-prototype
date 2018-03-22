@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Companies</h1>
-    <ul>
+    <div class='scroll-down'>Scroll Down &#8595;</div>
+    <div class='scroll-right'>Scroll Right &#8594;
+</div>
+    <ul class='provider-list'>
       <li v-for='provider in providersWithPageviews' :key='provider.id'
         class='provider'
         v-on:click='viewProvider(provider.id)'
@@ -25,6 +28,9 @@ export default {
 </script>
 
 <style scoped>
+.scroll-right {
+    display: none;
+  }
 ul {
   border: solid 1px #dce0e0;
 }
@@ -36,5 +42,24 @@ ul {
 }
 .provider:hover {
   cursor: pointer;
+}
+@media (max-width: 767px) {
+  .scroll-down {
+    display: none;
+  }
+  .scroll-right {
+    display: block;
+  }
+  ul.provider-list {
+    display: flex;
+    flex-direction: row;
+    max-width: 500px;
+    overflow-x: scroll;
+    margin: 0 auto;
+  }
+  .provider-list li {
+    border-bottom: none;
+    border-right: 1px solid #dce0e0;;
+  }
 }
 </style>
