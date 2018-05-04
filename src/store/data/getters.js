@@ -1,8 +1,10 @@
 export const providers = state => state.data.providers
 export const pages = state => state.data.pages
+export const pageviews = state => state.data.pageviews
+export const pagePathFromParamStatus = state => state.data.pagePathFromParamStatus
 
-export const isViewing = state => {
-  let providerID = state.data.isViewing
+export const isViewingProvider = state => {
+  let providerID = state.data.isViewingProvider
   if (!providerID) {
     return {
       provider: { name: 'Choose a company to view' },
@@ -35,4 +37,41 @@ export const providersWithPageviews = state => {
   let providerIdsFromSessions = sessions.map((s) => s.provider)
   let providers = state.data.providers.filter((p) => (providerIdsFromSessions.indexOf(p.id) > -1))
   return providers
+}
+
+export const isViewingPage = state => {
+  return state.data.isViewingPage
+}
+
+export const allViewsOfCurrentPage = state => {
+  let page = state.data.isViewingPage
+  return page.id ? state.data.pageviews.filter((pv) => pv.page === page.id) : []
+}
+
+export const providersAndTimesGroupedForViewsOfCurrentPage = (state, get) => {
+  let providerTimes = {}
+  let page = state.data.isViewingPage
+  if (!page.id) {
+    return []
+  }
+  let pageviews = state.data.pageviews.filter((pv) => pv.page === page.id)
+  pageviews.forEach((pv) => {
+    let providerID = pv.provider
+    if (providerTimes[providerID]) {
+      providerTimes[providerID] = providerTimes[providerID] + pv.seconds
+    } else {
+      providerTimes[providerID] = pv.seconds
+    }
+  })
+
+  var sortedProviderTimes = []
+  for (var provider in providerTimes) {
+    sortedProviderTimes.push([provider, providerTimes[provider]])
+  }
+
+  sortedProviderTimes.sort(function (a, b) {
+    return b[1] - a[1]
+  })
+
+  return sortedProviderTimes
 }

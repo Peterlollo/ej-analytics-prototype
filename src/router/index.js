@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Data from '@/components/Data'
+import Provider from '@/components/Provider'
 import MoreData from '@/components/MoreData'
 import Providers from '@/components/Providers'
+import Page from '@/components/Page'
 import NotFoundComponent from '@/components/NotFoundComponent'
 
 Vue.use(Router)
@@ -14,16 +15,22 @@ export default new Router({
       path: '/',
       name: 'home',
       components: {
-        main: Data,
+        main: Provider,
         sidebar: Providers
+      }
+    },
+    {
+      path: '/pages',
+      name: 'page',
+      components: {
+        main: Page
       }
     },
     {
       path: '/fetchMoreData',
       name: 'fetchMoreData',
       components: {
-        main: MoreData,
-        sidebar: Providers
+        main: MoreData
       }
     },
     {

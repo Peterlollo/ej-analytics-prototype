@@ -95,7 +95,6 @@ module.exports = {
     const rows = report.data.rows
 
     // add report data to DB
-    // TODO: delay start of next loop until all data from first loop synced into DB?
     for (var i = 0; i < rows.length; i++) {
       let rowDimensions = rows[i].dimensions
       let provider = rowDimensions[providerIndex]

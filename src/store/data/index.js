@@ -1,17 +1,25 @@
 import {
   GET_DATA_SUCCESS,
   GET_DATA_FAILURE,
-  VIEW_PROVIDER
+  VIEW_PROVIDER,
+  GET_PAGE_PATH_FROM_PARAM_SUCCESS,
+  GET_PAGE_PATH_FROM_PARAM_FAILURE
 } from './types'
 
 const state = {
   error: null,
-  isViewing: null,
+  isViewingProvider: null,
+  isViewingPage: {
+    id: null,
+    path: null
+  },
   filters: [],
   providers: [],
   pages: [],
   sessions: [],
-  pageviews: []
+  pageviews: [],
+  pagePathFromParam: null,
+  pagePathFromParamStatus: null
 }
 
 const mutations = {
@@ -28,7 +36,18 @@ const mutations = {
   },
 
   [VIEW_PROVIDER] (state, providerID) {
-    state.isViewing = providerID
+    state.isViewingProvider = providerID
+  },
+
+  [GET_PAGE_PATH_FROM_PARAM_SUCCESS] (state, path) {
+    state.pagePathFromParam = path
+    state.pagePathFromParamStatus = 'success'
+    state.isViewingPage = state.pages.filter((p) => p.path === path)[0]
+  },
+
+  [GET_PAGE_PATH_FROM_PARAM_FAILURE] (state, path) {
+    state.pagePathFromParam = path
+    state.pagePathFromParamStatus = 'fail'
   }
 
 }

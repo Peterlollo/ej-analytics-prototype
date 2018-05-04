@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Data</h1>
-    <h2>{{ isViewing.provider.name }}</h2>
+    <h1>Provider Data</h1>
+    <h2>{{ isViewingProvider.provider.name }}</h2>
     <ul>
-      <li v-for='session in isViewing.sessionsPageviews'
+      <li v-for='session in isViewingProvider.sessionsPageviews'
         :key='session.id'
         class='session'
         v-on:click='togglePageview(session.id)'
@@ -23,14 +23,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'Data',
+  name: 'Provider',
   data () {
     return {
       sessionIdToShow: null
     }
   },
   computed: {
-    ...mapGetters([ 'providers', 'isViewing', 'pages' ])
+    ...mapGetters([ 'providers', 'isViewingProvider', 'pages' ])
   },
   methods: {
     togglePageview (id) {
