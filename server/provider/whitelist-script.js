@@ -2,7 +2,7 @@ var fs = require('fs')
 var csv = require('csv')
 var Provider = require('./provider')
 
-var input = fs.createReadStream('./all-audiences.csv')
+var input = fs.createReadStream('./server/provider/all-audiences.csv')
 var parser = csv.parse({
   delimiter: ',',
   columns: true
