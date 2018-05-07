@@ -3,7 +3,11 @@ import {
   GET_DATA_FAILURE,
   VIEW_PROVIDER,
   GET_PAGE_PATH_FROM_PARAM_SUCCESS,
-  GET_PAGE_PATH_FROM_PARAM_FAILURE
+  GET_PAGE_PATH_FROM_PARAM_FAILURE,
+  WHITELIST_PROVIDER_FAILURE,
+  WHITELIST_PROVIDER_SUCCESS,
+  WHITELIST_CHANGE_PROVIDER_SECTOR_SUCCESS,
+  WHITELIST_CHANGE_PROVIDER_SECTOR_FAILURE
 } from './types'
 
 const state = {
@@ -19,7 +23,8 @@ const state = {
   sessions: [],
   pageviews: [],
   pagePathFromParam: null,
-  pagePathFromParamStatus: null
+  pagePathFromParamStatus: null,
+  whitelistSectors: []
 }
 
 const mutations = {
@@ -48,6 +53,24 @@ const mutations = {
   [GET_PAGE_PATH_FROM_PARAM_FAILURE] (state, path) {
     state.pagePathFromParam = path
     state.pagePathFromParamStatus = 'fail'
+  },
+
+  [WHITELIST_PROVIDER_FAILURE] (state) {
+  },
+
+  [WHITELIST_PROVIDER_SUCCESS] (state, provider) {
+    state.providers = state.providers.map((p) => {
+      return p.id === provider.id ? provider : p
+    })
+  },
+
+  [WHITELIST_CHANGE_PROVIDER_SECTOR_SUCCESS] (state, provider) {
+    state.providers = state.providers.map((p) => {
+      return p.id === provider.id ? provider : p
+    })
+  },
+
+  [WHITELIST_CHANGE_PROVIDER_SECTOR_FAILURE] (state) {
   }
 
 }

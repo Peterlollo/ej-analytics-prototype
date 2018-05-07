@@ -3,7 +3,11 @@ import {
   GET_DATA_FAILURE,
   VIEW_PROVIDER,
   GET_PAGE_PATH_FROM_PARAM_SUCCESS,
-  GET_PAGE_PATH_FROM_PARAM_FAILURE
+  GET_PAGE_PATH_FROM_PARAM_FAILURE,
+  WHITELIST_PROVIDER_FAILURE,
+  WHITELIST_PROVIDER_SUCCESS,
+  WHITELIST_CHANGE_PROVIDER_SECTOR_SUCCESS,
+  WHITELIST_CHANGE_PROVIDER_SECTOR_FAILURE
 } from './types'
 import axios from 'axios'
 
@@ -46,4 +50,31 @@ export const getPagePathFromParam = ({commit, state}) => {
   } else {
     commit(GET_PAGE_PATH_FROM_PARAM_FAILURE, path)
   }
+}
+
+export const whitelistAddOrRemoveProvider = ({commit, dispatch}, {action, id}) => {
+  console.log('in the action with action: ', action, ' and id: ', id)
+  axios.post(`${process.env.API_BASE_URL}/api/providers/changeWhitelist`, {action, id})
+    .then(response => {
+      let provider = response.data
+      console.log('New Provider Data', provider)
+      commit(WHITELIST_PROVIDER_SUCCESS, provider)
+    })
+    .catch(e => {
+      console.log('Error: ', e)
+      commit(WHITELIST_PROVIDER_FAILURE)
+    })
+}
+
+export const providerChangeSector = ({commit, dispatch}, {id, sector}) => {
+  axios.post(`${process.env.API_BASE_URL}/api/providers/changeSector`, {id, sector})
+    .then(response => {
+      let provider = response.data
+      console.log('New Provider Data', provider)
+      commit(WHITELIST_CHANGE_PROVIDER_SECTOR_SUCCESS, provider)
+    })
+    .catch(e => {
+      console.log('Error: ', e)
+      commit(WHITELIST_CHANGE_PROVIDER_SECTOR_FAILURE)
+    })
 }

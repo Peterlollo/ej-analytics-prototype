@@ -1,34 +1,29 @@
 <template>
   <div>
-    <h1>Page Data</h1>
     <div v-if='pagePathFromParamStatus === "success"'>
-      <h2>Page: {{ isViewingPage.path }}</h2>
-      <h4>Key Views Of Page</h4>
-      <h6>Total: {{ currentPageWithTimesKeyProviders.length }}</h6>
+      <h1>Page: {{ isViewingPage.path }}</h1>
+      <h2>Important Visitors: {{ currentPageWithTimesKeyProviders.length }}</h2>
       <ul>
         <li v-for='providerTime in currentPageWithTimesKeyProviders' v-bind:key='providerTime[0]'>
-          <div>Provider: {{ getProviderNameFromID(Number(providerTime[0])) }}</div>
-          <div>Time On Page (seconds): {{ providerTime[1] }}</div>
+          <div><strong>Provider:</strong> {{ getProviderFromID(providerTime[0]).name }}</div>
+          <div><strong>Sector:</strong> {{ getProviderFromID(providerTime[0]).sector }}</div>
+          <div><strong>Time On Page:</strong> {{ providerTime[1] }} seconds</div>
+          <button v-on:click='whitelistAddOrRemoveProvider({ action: "remove", id: providerTime[0] })'>Remove From Whitelist</button>
+          <button>Change Sector</button>
         </li>
       </ul>
-      <h4>Not Key Views Of Page</h4>
-      <h6>Total: {{ currentPageWithTimesNotKeyProviders.length }}</h6>
+      <h2>NON Important Visitors: {{ currentPageWithTimesNotKeyProviders.length }}</h2>
       <ul>
         <li v-for='providerTime in currentPageWithTimesNotKeyProviders' v-bind:key='providerTime[0]'>
-          <div>Provider: {{ getProviderNameFromID(Number(providerTime[0])) }}</div>
-          <div>Time On Page (seconds): {{ providerTime[1] }}</div>
+          <div><strong>Provider:</strong> {{ getProviderFromID(providerTime[0]).name }}</div>
+          <div><strong>Time On Page:</strong> {{ providerTime[1] }} seconds</div>
+          <button v-on:click='whitelistAddOrRemoveProvider({ action: "add", id: providerTime[0] })'>Add To Whitelist</button>
+          <button>Change Sector</button>
         </li>
       </ul>
-      <!-- <h4>All Views Of Page</h4>
-      <ul>
-        <li v-for='providerTime in providersAndTimesGroupedForViewsOfCurrentPage' v-bind:key='providerTime[0]'>
-          <div>Provider: {{ getProviderNameFromID(Number(providerTime[0])) }}</div>
-          <div>Time On Page (seconds): {{ providerTime[1] }}</div>
-        </li>
-      </ul> -->
     </div>
     <div v-else-if='pagePathFromParamStatus === "fail"'>
-      <h2>Could Not Find That Page Path</h2>
+      <h1>Could Not Find That Page Path</h1>
     </div>
   </div>
 </template>
@@ -54,7 +49,14 @@ export default {
     getProviderNameFromID (id) {
       return this.providers.filter((p) => p.id === id)[0].name
     },
-    ...mapActions([ 'getData', 'getPagePathFromParam' ])
+    getProviderFromID (id) {
+      return this.providers.filter((p) => p.id === id)[0]
+    },
+    ...mapActions([
+      'getData',
+      'getPagePathFromParam',
+      'whitelistAddOrRemoveProvider'
+    ])
   },
   created () {
     this.getData()
