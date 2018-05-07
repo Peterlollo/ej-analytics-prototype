@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1>Companies</h1>
+    <h1>Pages</h1>
     <div class='scroll-down'>Scroll Down &#8595;</div>
     <div class='scroll-right'>Scroll Right &#8594;
 </div>
-    <ul class='provider-list'>
-      <li v-for='provider in providersWithPageviews' :key='provider.id'
-        class='provider'
-        v-on:click='viewProvider(provider.id)'
-      >{{ provider.name }}
+    <ul class='page-list'>
+      <li v-for='page in pages' :key='pages.indexOf(page)'
+        class='page'
+        v-on:click='viewPage(page.id)'
+      >{{ page.path }}
       </li>
     </ul>
   </div>
@@ -17,12 +17,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'Providers',
+  name: 'Pages',
   computed: {
-    ...mapGetters([ 'providersWithPageviews' ])
+    ...mapGetters([ 'pages' ])
   },
   methods: {
-    ...mapActions([ 'viewProvider' ])
+    ...mapActions([ 'viewPage' ])
   }
 }
 </script>
@@ -34,13 +34,13 @@ export default {
 ul {
   border: solid 1px #dce0e0;
 }
-.provider {
+.page {
   padding: 20px;
   border-bottom: 1px solid #dce0e0;
   margin-left: 10px;
   margin-right: 10px;
 }
-.provider:hover {
+.page:hover {
   cursor: pointer;
 }
 @media (max-width: 767px) {
@@ -50,14 +50,14 @@ ul {
   .scroll-right {
     display: block;
   }
-  ul.provider-list {
+  ul.page-list {
     display: flex;
     flex-direction: row;
     max-width: 500px;
     overflow-x: scroll;
     margin: 0 auto;
   }
-  .provider-list li {
+  .page-list li {
     border-bottom: none;
     border-right: 1px solid #dce0e0;;
   }

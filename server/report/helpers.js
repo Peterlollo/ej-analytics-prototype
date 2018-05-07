@@ -95,14 +95,13 @@ module.exports = {
     const rows = report.data.rows
 
     // add report data to DB
-    // TODO: delay start of next loop until all data from first loop synced into DB?
-    for (var i = 0; i < rows.length; i++) {
-      let rowDimensions = rows[i].dimensions
-      let provider = rowDimensions[providerIndex]
-      let path = rowDimensions[pathIndex]
-      let rowMetrics = rows[i].metrics[0].values
-      let date = rowDimensions[dateIndex]
-      let timeOnPage = Number(rowMetrics[timeOnPageIndex])
+    for (let i = 0; i < rows.length; i++) {
+      const rowDimensions = rows[i].dimensions
+      const provider = rowDimensions[providerIndex]
+      const path = rowDimensions[pathIndex]
+      const rowMetrics = rows[i].metrics[0].values
+      const date = rowDimensions[dateIndex]
+      const timeOnPage = Number(rowMetrics[timeOnPageIndex])
 
       // add Provider
       Provider.findOrCreate({where: {name: provider}})
@@ -111,7 +110,7 @@ module.exports = {
             .then(() => { // add Session
               Provider.findOrCreate({where: {name: provider}}) // search Providers for a match
                 .spread((providerFound) => { // format date
-                  let searchDate = date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8)
+                  const searchDate = date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8)
                   Session.findOrCreate({where: {provider: providerFound.id, date: searchDate}})
                 }).then(() => { // add Pageview
                   pageviewController.addPageview(provider, path, date, timeOnPage)
