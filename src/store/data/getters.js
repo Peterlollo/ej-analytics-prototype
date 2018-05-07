@@ -66,7 +66,7 @@ export const providersAndTimesGroupedForViewsOfCurrentPage = (state, get) => {
 
   var sortedProviderTimes = []
   for (var provider in providerTimes) {
-    sortedProviderTimes.push([provider, providerTimes[provider]])
+    sortedProviderTimes.push([Number(provider), providerTimes[provider]])
   }
 
   sortedProviderTimes.sort(function (a, b) {
@@ -74,4 +74,17 @@ export const providersAndTimesGroupedForViewsOfCurrentPage = (state, get) => {
   })
 
   return sortedProviderTimes
+}
+
+export const keyProviderIds = state => {
+  let keyProviders = state.data.providers.filter((p) => p.important === true)
+  return keyProviders.length ? keyProviders.map((provider) => { return provider.id }) : []
+}
+
+export const currentPageWithTimesKeyProviders = (state, get) => {
+  return get.providersAndTimesGroupedForViewsOfCurrentPage.filter((p) => get.keyProviderIds.indexOf(p[0]) > -1)
+}
+
+export const currentPageWithTimesNotKeyProviders = (state, get) => {
+  return get.providersAndTimesGroupedForViewsOfCurrentPage.filter((p) => get.keyProviderIds.indexOf(p[0]) === -1)
 }

@@ -3,13 +3,29 @@
     <h1>Page Data</h1>
     <div v-if='pagePathFromParamStatus === "success"'>
       <h2>Page: {{ isViewingPage.path }}</h2>
-      <h4>All Views Of Page</h4>
+      <h4>Key Views Of Page</h4>
+      <h6>Total: {{ currentPageWithTimesKeyProviders.length }}</h6>
+      <ul>
+        <li v-for='providerTime in currentPageWithTimesKeyProviders' v-bind:key='providerTime[0]'>
+          <div>Provider: {{ getProviderNameFromID(Number(providerTime[0])) }}</div>
+          <div>Time On Page (seconds): {{ providerTime[1] }}</div>
+        </li>
+      </ul>
+      <h4>Not Key Views Of Page</h4>
+      <h6>Total: {{ currentPageWithTimesNotKeyProviders.length }}</h6>
+      <ul>
+        <li v-for='providerTime in currentPageWithTimesNotKeyProviders' v-bind:key='providerTime[0]'>
+          <div>Provider: {{ getProviderNameFromID(Number(providerTime[0])) }}</div>
+          <div>Time On Page (seconds): {{ providerTime[1] }}</div>
+        </li>
+      </ul>
+      <!-- <h4>All Views Of Page</h4>
       <ul>
         <li v-for='providerTime in providersAndTimesGroupedForViewsOfCurrentPage' v-bind:key='providerTime[0]'>
           <div>Provider: {{ getProviderNameFromID(Number(providerTime[0])) }}</div>
           <div>Time On Page (seconds): {{ providerTime[1] }}</div>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <div v-else-if='pagePathFromParamStatus === "fail"'>
       <h2>Could Not Find That Page Path</h2>
@@ -28,7 +44,10 @@ export default {
       'pagePathFromParamStatus',
       'pages',
       'allViewsOfCurrentPage',
-      'providersAndTimesGroupedForViewsOfCurrentPage'
+      'providersAndTimesGroupedForViewsOfCurrentPage',
+      'keyProviderIds',
+      'currentPageWithTimesKeyProviders',
+      'currentPageWithTimesNotKeyProviders'
     ])
   },
   methods: {

@@ -1,15 +1,14 @@
 var fs = require('fs')
 var csv = require('csv')
 var Provider = require('./provider')
-var db = require('../config/db')
 
-var input = fs.createReadStream('./primary-audiences.csv')
+var input = fs.createReadStream('./all-audiences.csv')
 var parser = csv.parse({
   delimiter: ',',
   columns: true
 })
 
-var transform = csv.transform(function(row) {
+var transform = csv.transform(function (row) {
   for (var sector in row) { // a sector corresponds to a column header on the google spreadsheet
     var providerName = row[sector]
     if (providerName) { // checks that a value was entered for this column on this row
@@ -24,8 +23,8 @@ var transform = csv.transform(function(row) {
           defaults: resultObj
         })
         .spread((provider, created) => {
-          if(!created) { // if provider already existed in db, update it
-            provider.update( {important: true, sector: resultObj['sector'] })
+          if (!created) { // if provider already existed in db, update it
+            provider.update({important: true, sector: resultObj['sector']})
           }
         })
     }
