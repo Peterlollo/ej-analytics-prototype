@@ -42,7 +42,7 @@ module.exports = {
           viewId: viewID,
           pageToken: '0', // API pagination offset
           pageSize: 500, // Number of records to request
-          dateRanges: [
+          dateRanges: [ // Date ranges to request data from
             {
               startDate: '2daysAgo',
               endDate: 'today'

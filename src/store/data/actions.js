@@ -41,7 +41,6 @@ export const viewProvider = ({commit}, providerID) => {
 }
 
 export const getPagePathFromParam = ({commit, state}) => {
-  console.log('getting page path!')
   let parsedUrl = new URL(window.location.href)
   let path = parsedUrl.searchParams.get('path')
   let page = state.data.pages.filter((p) => p.path === path)[0]
@@ -53,7 +52,6 @@ export const getPagePathFromParam = ({commit, state}) => {
 }
 
 export const whitelistAddOrRemoveProvider = ({commit, dispatch}, {action, id}) => {
-  console.log('in the action with action: ', action, ' and id: ', id)
   axios.post(`${process.env.API_BASE_URL}/api/providers/changeWhitelist`, {action, id})
     .then(response => {
       let provider = response.data
