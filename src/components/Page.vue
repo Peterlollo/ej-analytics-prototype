@@ -9,7 +9,6 @@
           <div><strong>Sector:</strong> {{ getProviderFromID(providerTime[0]).sector }}</div>
           <div><strong>Time On Page:</strong> {{ providerTime[1] }} seconds</div>
           <button v-on:click='whitelistAddOrRemoveProvider({ action: "remove", id: providerTime[0] })'>Remove From Whitelist</button>
-          <button>Change Sector</button>
         </li>
       </ul>
       <h2>NON Important Visitors: {{ currentPageWithTimesNotKeyProviders.length }}</h2>
@@ -18,7 +17,6 @@
           <div><strong>Provider:</strong> {{ getProviderFromID(providerTime[0]).name }}</div>
           <div><strong>Time On Page:</strong> {{ providerTime[1] }} seconds</div>
           <button v-on:click='whitelistAddOrRemoveProvider({ action: "add", id: providerTime[0] })'>Add To Whitelist</button>
-          <button>Change Sector</button>
         </li>
       </ul>
     </div>
