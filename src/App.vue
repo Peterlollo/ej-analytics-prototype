@@ -70,11 +70,14 @@ html, body {
   overflow-y: scroll;
 }
 #footer {
-  min-height: 500px;
-  background-image: url('./assets/ej-logo-white.png');
-  background-size: cover;
-  background-color: rgba(0,0,0,0.3);
+  min-height: 200px;
+  background-color: #384249;
   width: 100%;
+  background-image: url('./assets/ej-logo-white.png');
+  background-size: contain;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 h1, h2 {
